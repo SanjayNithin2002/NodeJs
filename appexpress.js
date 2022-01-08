@@ -16,6 +16,16 @@ app.use((err,req,res,next)=>{
     res.send("500 - Internal Error");
 });
 
+app.get("/",(req,res)=>{
+    res.type('tetx/plain');
+    res.send("Hey there this is Sanjay Nithin");
+});
+
+app.get("/about",(req,res)=>{
+    res.type('text/plain');
+    res.send("This is the about page");
+});
+
 app.listen(app.get('port'),()=>{
     console.log("Logged in");
 });
