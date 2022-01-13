@@ -13,8 +13,9 @@ app.set('port',process.env.PORT || 3000);
 app.use(express.static("public"));
 
 
-//testing code
-app.use((res,req,next)=>{
+//internal testing code
+//global testing
+app.use((req,res,next)=>{
     res.locals.showTests = app.get("env") !== 'production' && req.query.test === '1';
     next();
 });
@@ -25,9 +26,27 @@ app.get("/",(req,res)=>{
     res.render('home');
 });
 
+
+//page dependent testing
 app.get("/about",(req,res)=>{
-    res.render('about',{dynamicContent : dynamicString});
+    res.render('about',{
+        dynamicContent : dynamicString,
+        pageTestScript: '/Contact'
+    });
 });
+
+/*
+dependency files are added in public/vendor directory.
+public/qa directory is created.
+The following files are added
+tests-global -> for all pages.
+tests-{routeName} -> for a specific page.
+When test is set to 1 , the test files are executed.
+We added a pageTestScript dynamic rendering in main which will execute if we pass a pagetestScript;
+and the value is checked by tests-about
+if it is contact it is successful
+or it a failure.
+*/
 
 app.use((req,res)=>{
     res.status(404);
