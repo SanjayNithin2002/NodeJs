@@ -13,6 +13,14 @@ app.set('port',process.env.PORT || 3000);
 app.use(express.static("public"));
 
 
+//testing code
+app.use((res,req,next)=>{
+    res.locals.showTests = app.get("env") !== 'production' && req.query.test === '1';
+    next();
+});
+
+
+
 app.get("/",(req,res)=>{
     res.render('home');
 });
