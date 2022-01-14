@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
     res.render('home');
-});terminal
+});
 
 
 //page dependent testing
@@ -49,10 +49,20 @@ if it is contact it is successful
 or it a failure.
 */
 
+//New views added to test crosspage-testing
+
+app.get('/tours/hood-river', function (req, res) {
+    res.render('tours/hood-river');
+});
+app.get('/tours/request-group-rate', function (req, res) {
+    res.render('tours/request-group-rate');
+});
+
 app.use((req, res) => {
     res.status(404);
     res.render('notfound');
 });
+
 
 app.listen(app.get('port'), () => {
     console.log("logged in");
