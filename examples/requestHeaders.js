@@ -20,6 +20,16 @@ app.post("/body",function(req,res){
     console.log(req.body); //name value pairs of the html.Used in form processing.Used with post methods.
 });
 
+app.get("/download",function(req,res){
+    res.attachment("lib/logo.jpg");
+    console.log(res.get('Content-Disposition'));
+});
+
+app.get("/downloadFile",function(req,res){
+    res.download("lib/logo.jpg");
+});
+
+
 app.listen(app.get('port'),function(req,res){
     console.log("logged in");
 });
