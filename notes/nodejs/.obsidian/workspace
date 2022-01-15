@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "request-parameters.md",
+            "file": "response-parameters.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "request-parameters.md",
+                "file": "response-parameters.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,6 +88,7 @@
   },
   "active": "a83eae755ff5dc09",
   "lastOpenFiles": [
+    "response-parameters.md",
     "request-parameters.md",
     "random.md",
     "resources.md",
