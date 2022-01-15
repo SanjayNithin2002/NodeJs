@@ -65,7 +65,7 @@ app.get("/custom-layout", function (req, res) {
     });
 });
 
-app.get('/data/nursery-rhyme', function (req, res) {
+app.get('/data/aja-call-data', function (req, res) {
     res.json({
         type : 'AJAX'
     });
