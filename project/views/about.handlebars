@@ -1,10 +1,22 @@
 <h1>About</h1>
 <p>
     <ul>
-    {{#each dynamicContent}}
+    {{#each dynamicString}}
     <li> 
         {{firstname}} - {{lastname}}
+        {{#if ../id}}
+        {{../../author.username}}
+        {{/if}}
+        {{! ../ will point out to parent node of current context}}
+        {{! here the context is within the items of dynamic string , so outside items can't be accessed}}
     </li>
+    {{/each}}
+    {{#unless id}}
+    <p>unless is executed</p>
+    {{/unless}}
+    <br/>
+    {{#each dynamicString}}
+    {{.}} <!--schema of the dictionary -->
     {{/each}}
     </ul>
 </p>
