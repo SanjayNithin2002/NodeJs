@@ -5,7 +5,7 @@ var handlebars = require("express3-handlebars").create({ defaultLayout: 'main' }
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars'); //choosing handlesbars as viewengine 
-
+app.set('view cache',true);
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.static("public"));
@@ -42,7 +42,12 @@ app.get("/about", function(req, res){
     });
 });
 
-
+app.get("/custom-layout",function(req,res){
+    res.render('customLayoutTest',{
+        layout : 'custom',
+        copyrightYear : '2022'
+    });
+});
 /*
 dependency files are added in public/vendor directory.
 public/qa directory is created.
