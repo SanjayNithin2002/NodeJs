@@ -64,6 +64,12 @@ app.get("/custom-layout", function (req, res) {
         copyrightYear: '2022'
     });
 });
+
+app.get('/data/nursery-rhyme', function (req, res) {
+    res.json({
+        type : 'AJAX'
+    });
+});
 /*
 dependency files are added in public/vendor directory.
 public/qa directory is created.
