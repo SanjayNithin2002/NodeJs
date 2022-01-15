@@ -12,8 +12,9 @@ function servestaticFile(res,path,contentType,responseCode){
             res.writeHead(responseCode,{'Content-Type' : contentType});
             res.end(data);
         }
-    })
-};
+    });
+}
+
 http.createServer(function(req,res){
     var path = req.url.replace((/\/?(?:\?.*)?$/," ")).toLowerCase();
     console.log(path);
