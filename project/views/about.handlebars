@@ -1,4 +1,10 @@
 <h1>About</h1>
 <p>
-    {{dynamicContent}}
+    <ul>
+    {{#each dynamicContent}}
+    <li> 
+        {{firstname}} - {{lastname}}
+    </li>
+    {{/each}}
+    </ul>
 </p>

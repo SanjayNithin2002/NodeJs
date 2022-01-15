@@ -3,10 +3,15 @@ var app = express()
 
 var handlebars = require("express3-handlebars").create({ defaultLayout: 'main' });
 
-var dynamicString = "This is written dynamically!!!";
+var dynamicString = [
+    {firstname : "Sanjay" , lastname : "Nithin"},
+    {firstname : "Ajay" , lastname : "Devgan"},
+    {firstname : "Ishani" , lastname : "Bhavya"},
+    {firstname : "Jawahar" , lastname : "Prayush"}
+];
 
 app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
+app.set('view engine', 'handlebars'); //choosing handlesbars as viewengine 
 
 app.set('port', process.env.PORT || 3000);
 
