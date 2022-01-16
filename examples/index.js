@@ -24,6 +24,7 @@ app.get("/process", function (req, res) {
 app.post('/process-form', function (req, res) {
     if (req.xhr || req.accepts('json,html') === 'json') {
         res.send({success : true});
+        // so the following commands in error of ajax part will be executed
     } else {
         res.redirect(303, '/thank-you');
     }
