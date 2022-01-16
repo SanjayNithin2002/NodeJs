@@ -21,6 +21,7 @@
                         age: $("input[name = 'age']").val(),
                         email: $("input[name = 'email']").val()
                     },
+                    //server will send the response and based on that success or failure will be executed.
                     success: function (data) {
                         if (data.success) {
                             console.log("success");

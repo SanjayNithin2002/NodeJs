@@ -23,7 +23,7 @@ app.get("/process", function (req, res) {
 });
 app.post('/process-form', function (req, res) {
     if (req.xhr || req.accepts('json,html') === 'json') {
-        res.redirect(303, '/process');
+        res.send({success : true});
     } else {
         res.redirect(303, '/thank-you');
     }
