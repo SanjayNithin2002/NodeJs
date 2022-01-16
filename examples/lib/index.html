@@ -8,19 +8,30 @@
     <title>Document</title>
     <script src="//code.jquery.com/jquery-2.0.2.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $("#formSubmit").on("submit",function(event){
+        $(document).ready(function () {
+            $("#formSubmit").on("submit", function (event) {
                 console.log("see here");
                 event.preventDefault();
                 var action = $(this).attr("action");
                 $.ajax({
-                    url : action,
-                    type : 'POST',
-                    data : {
-                        name : $("input[name = 'name']").val(),
-                        age : $("input[name = 'age']").val(),
-                        email : $("input[name = 'email']").val()
+                    url: action,
+                    type: 'POST',
+                    data: {
+                        name: $("input[name = 'name']").val(),
+                        age: $("input[name = 'age']").val(),
+                        email: $("input[name = 'email']").val()
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            console.log("success");
+                        } else {
+                            console.log("failure");
+                        }
+                    },
+                    error: function () {
+                        console.log("failure");
                     }
+
                 });
             });
         });
