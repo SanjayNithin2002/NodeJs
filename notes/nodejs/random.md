@@ -13,5 +13,7 @@ It is like a virtual browser to maintain the logic.
 ->For name/value pairs - application/x-www-form-urlencoded.
 ->To upload files, multipart/form-data;
 ->For AJAX requests -> application/json.
+7) You can use post method omitting the action attribute as there'll be no consfusion as post and get methods act differently.
+8) Or you can submit to a different path handle it and return it to the path.
 
 
