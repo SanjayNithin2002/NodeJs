@@ -1,5 +1,7 @@
 var express = require("express");
+var credentials = require("./credentials.js");
 var app = express();
+
 
 var handlebars = require("express3-handlebars").create({
     defaultLayout: 'main', helpers: {
@@ -18,7 +20,8 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static("public"));
 
-
+app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require("express-session")());
 //internal testing code
 //global testing
 app.use(function (req, res, next) {
@@ -33,6 +36,11 @@ app.use(function (req, res, next) {
         { name: "Nithin", age: '20' },
         { name: "Ajay", age: 23 }
     ];
+    next();
+});
+app.use(function (req, res, next) {
+    res.locals.flash = req.session.flash;
+    delete req.session.flash;
     next();
 });
 
@@ -67,7 +75,7 @@ app.get("/custom-layout", function (req, res) {
 
 app.get('/data/aja-call-data', function (req, res) {
     res.json({
-        type : 'AJAX'
+        type: 'AJAX'
     });
 });
 /*
@@ -90,6 +98,41 @@ app.get('/tours/hood-river', function (req, res) {
 });
 app.get('/tours/request-group-rate', function (req, res) {
     res.render('tours/request-group-rate');
+});
+
+app.post("/newsletter", function (req, res) {
+    var email = req.body.name || " ", email = req.body.email || " ";
+    if (!email.match(VALID_EMAIL_REGEX)) {
+        if (req.xhr) {
+            return res.json({ error: "Invalid request" });
+        }
+        req.session.flash = {
+            type: "danger",
+            intro: "intro",
+            message: "this is a message"
+        };
+        return res.redirect(303, "/about");
+    }
+    new NewsletterSignup({ name: name, email: email }).save(function (err) {
+        if (err) {
+            if (req.xhr) {
+                return res.json({ error: "Database error" });
+            }
+            req.session.flash = {
+                type: "danger",
+                intro: "intro",
+                message: "Database error"
+            };
+            return res.redirect(303, "/about");
+        }
+        if (req.xhr) return res.json({ success: true });
+        req.session.flash = {
+            type: 'success',
+            intro: 'thank you',
+            message: "Success message"
+        };
+        return res.redirect(303, "/about");
+    });
 });
 
 app.use(function (req, res) {

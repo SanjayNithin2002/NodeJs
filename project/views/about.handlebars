@@ -1,8 +1,8 @@
 <h1>About</h1>
 <p>
-    <ul>
+<ul>
     {{#each dynamicString}}
-    <li> 
+    <li>
         {{firstname}} - {{lastname}}
         {{#if ../id}}
         {{../../author.username}}
@@ -14,9 +14,10 @@
     {{#unless id}}
     <p>unless is executed</p>
     {{/unless}}
-    <br/>
+    <br />
     {{#each dynamicString}}
-    {{.}} <!--schema of the dictionary -->
+    {{.}}
+    <!--schema of the dictionary -->
     {{/each}}
-    </ul>
+</ul>
 </p>
