@@ -1,9 +1,4 @@
 var mongoose = require("mongoose");
-opts = {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true 
-};
-mongoose.connect(credentials.mongoDb.connectString);
 var studentSchema = mongoose.Schema({
     name : String,
     regNo : String,
@@ -14,11 +9,4 @@ var studentSchema = mongoose.Schema({
 });
 
 var Student  = mongoose.model("Student",studentSchema);
-new Student({
-    name : "Sanjay",
-    regNo : "20bi0150",
-    Department : "SITE",
-    email : "sanjay.nithin19@gmail.com",
-    about : "an enthusiast about technology and future",
-    dob : "2002-10-19"
-});
+module.exports = Student;
