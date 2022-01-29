@@ -1,6 +1,19 @@
 var express = require("express");
 var credentials = require("./credentials.js");
+var bodyParser = require("body-parser");
+var mongoose = require('mongoose');
+var opts = {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+};
+mongoose.connect(credentials.mongoDb.connectString,opts);
 var app = express();
+
+function NewsletterSignup(name, email) {
+    this.name = name;
+    this.email = email;
+}
+
 
 
 var handlebars = require("express3-handlebars").create({
@@ -19,16 +32,14 @@ app.set('view cache', true);
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.static("public"));
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require("express-session")());
-//internal testing code
-//global testing
 app.use(function (req, res, next) {
     res.locals.showTests = app.get("env") !== 'production' && req.query.test === '1';
     next();
 });
-
 app.use(function (req, res, next) {
     if (!res.locals.partials) res.locals.partials = {};
     res.locals.partials.data = [
@@ -43,6 +54,9 @@ app.use(function (req, res, next) {
     delete req.session.flash;
     next();
 });
+
+
+
 
 app.get("/", function (req, res) {
     res.render('home');
@@ -101,8 +115,8 @@ app.get('/tours/request-group-rate', function (req, res) {
 });
 
 app.post("/newsletter", function (req, res) {
-    var email = req.body.name || " ", email = req.body.email || " ";
-    if (!email.match(VALID_EMAIL_REGEX)) {
+    var name = req.body.name || " ", email = req.body.email || " ";
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
         if (req.xhr) {
             return res.json({ error: "Invalid request" });
         }
@@ -113,26 +127,13 @@ app.post("/newsletter", function (req, res) {
         };
         return res.redirect(303, "/about");
     }
-    new NewsletterSignup({ name: name, email: email }).save(function (err) {
-        if (err) {
-            if (req.xhr) {
-                return res.json({ error: "Database error" });
-            }
-            req.session.flash = {
-                type: "danger",
-                intro: "intro",
-                message: "Database error"
-            };
-            return res.redirect(303, "/about");
-        }
-        if (req.xhr) return res.json({ success: true });
-        req.session.flash = {
-            type: 'success',
-            intro: 'thank you',
-            message: "Success message"
-        };
-        return res.redirect(303, "/about");
-    });
+    if (req.xhr) return res.json({ success: true });
+    req.session.flash = {
+        type: 'success',
+        intro: 'thank you',
+        message: "Success message"
+    };
+    return res.redirect(303, "/about");
 });
 
 app.use(function (req, res) {
