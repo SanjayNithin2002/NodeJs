@@ -1,5 +1,6 @@
 var express = require("express");
 var credentials = require("./credentials.js");
+var Student = require("./models/student.js");
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 var opts = {
@@ -8,6 +9,16 @@ var opts = {
 };
 mongoose.connect(credentials.mongoDb.connectString,opts);
 var app = express();
+new Student({
+    name : "Sanjay",
+    regNo : "20bi0150",
+    Department : "SITE",
+    email : "sanjay.nithin19@gmail.com",
+    about : "an enthusiast about technology and future",
+    dob : "2002-10-19"
+});
+
+
 
 function NewsletterSignup(name, email) {
     this.name = name;
