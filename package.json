@@ -8,6 +8,8 @@
     "formidable": "^2.0.1",
     "grunt-cli": "^1.4.3",
     "jquery-file-upload-middleware": "^0.1.8",
+    "mongoose": "^6.1.8",
+    "nodemailer": "^6.7.2",
     "path": "^0.12.7"
   },
   "devDependencies": {
